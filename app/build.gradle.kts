@@ -45,7 +45,7 @@ android {
     compileSdkMinor = 2
 
     defaultConfig {
-        applicationId = "com.esrrhs.pingtunnel.client"
+        applicationId = "com.istudyatuni.pingtunnel.client"
         minSdk = 26
         targetSdk = 37
         versionCode = 8
