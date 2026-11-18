@@ -64,7 +64,7 @@
     <string name="toast_import_failed">တင်သွင်းမှု မအောင်မြင်ပါ- %1$s</string>
     <string name="scan_prompt">ဘောင်တွင် pingtunnel ပရိုဖိုင် QR ကုဒ်ကို ညွှန်ပါ။</string>
     <string name="menu_logs">မှတ်တမ်းများ</string>
-    <string name="empty_profiles">ပရိုဖိုင်များ မရှိသေးပါ။ တစ်ခုထည့်ရန် အောက်ပါခလုတ်ကို အသုံးပြုပါ၊ သို့မဟုတ် ဖိုင်တစ်ခုမှ စကင်န်ဖတ်/တင်သွင်းပါ။</string>
+    <string name="empty_profiles">ပရိုဖိုင်များ မရှိသေးပါ။ တစ်ခုထည့်ရန် အောက်ပါခလုတ်ကို အသုံးပြုပါ၊ သို့မဟုတ် ဖိုင်တစ်ခုမှ တင်သွင်းပါ။</string>
     <string name="action_scan">စကင်န်</string>
     <string name="action_import">သွင်းကုန်</string>
     <string name="action_export">တင်ပို့ခြင်း။</string>
@@ -89,6 +89,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">တည်းဖြတ်ပါ။</string>
     <string name="action_delete">ဖျက်ပါ။</string>
+    <string name="action_test_tunnel">Tunnel စမ်းသပ်ရန်</string>
+    <string name="action_connect">ချိတ်ဆက်ရန်</string>
     <string name="action_disconnect">အဆက်ဖြတ်ရန်</string>
     <string name="format_traffic">↑ %1$s ↓ %2$s</string>
     <string name="stats_title">ယာဉ်အသွားအလာ ကိန်းဂဏန်းများ</string>

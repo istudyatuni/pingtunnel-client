@@ -64,7 +64,7 @@
     <string name="toast_import_failed">Nhập không thành công: %1$s</string>
     <string name="scan_prompt">Trỏ mã pingtunnel hồ sơ QR vào khung</string>
     <string name="menu_logs">Nhật ký</string>
-    <string name="empty_profiles">Chưa có hồ sơ nào. Sử dụng nút bên dưới để thêm một hoặc quét / nhập từ một tệp.</string>
+    <string name="empty_profiles">Chưa có hồ sơ nào. Sử dụng nút bên dưới để thêm một hoặc nhập từ một tệp.</string>
     <string name="action_scan">Quét</string>
     <string name="action_import">Nhập khẩu</string>
     <string name="action_export">Xuất khẩu</string>
@@ -89,6 +89,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">Chỉnh sửa</string>
     <string name="action_delete">Xóa</string>
+    <string name="action_test_tunnel">Kiểm tra đường hầm</string>
+    <string name="action_connect">Kết nối</string>
     <string name="action_disconnect">Ngắt kết nối</string>
     <string name="format_traffic">↑ %1$s ↓ %2$s</string>
     <string name="stats_title">số liệu thống kê giao thông</string>

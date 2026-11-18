@@ -64,7 +64,7 @@
     <string name="toast_import_failed">Не удалось импортировать: %1$s.</string>
     <string name="scan_prompt">Наведите код профиля pingtunnel QR на кадр.</string>
     <string name="menu_logs">Журналы</string>
-    <string name="empty_profiles">Профилей пока нет. Используйте кнопку ниже, чтобы добавить его, или отсканируйте/импортируйте из файла.</string>
+    <string name="empty_profiles">Профилей пока нет. Используйте кнопку ниже, чтобы добавить его, или импортируйте из файла.</string>
     <string name="action_scan">Сканировать</string>
     <string name="action_import">Импорт</string>
     <string name="action_export">Экспорт</string>
@@ -89,6 +89,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_test_tunnel">Проверить туннель</string>
+    <string name="action_connect">Подключить</string>
     <string name="action_disconnect">Отключить</string>
     <string name="format_traffic">↑ %1$s ↓ %2$s</string>
     <string name="stats_title">Статистика трафика</string>

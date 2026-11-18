@@ -75,7 +75,7 @@
 
     <!-- 主界面 -->
     <string name="menu_logs">运行日志</string>
-    <string name="empty_profiles">暂无配置，点下方按钮添加，或扫码 / 从文件导入。</string>
+    <string name="empty_profiles">暂无配置，点下方按钮添加，或从文件导入。</string>
     <string name="action_scan">扫码</string>
     <string name="action_import">导入</string>
     <string name="action_export">导出</string>
@@ -100,6 +100,8 @@
     <string name="action_qr">二维码</string>
     <string name="action_edit">编辑</string>
     <string name="action_delete">删除</string>
+    <string name="action_test_tunnel">检查隧道</string>
+    <string name="action_connect">连接</string>
     <string name="action_disconnect">断开</string>
     <string name="format_traffic">↑ %1$s    ↓ %2$s</string>
 
