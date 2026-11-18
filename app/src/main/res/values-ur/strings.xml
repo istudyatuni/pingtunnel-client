@@ -64,7 +64,7 @@
     <string name="toast_import_failed">درآمد ناکام: %1$s</string>
     <string name="scan_prompt">pingtunnel پروفائل QR کوڈ کو فریم پر رکھیں</string>
     <string name="menu_logs">نوشتہ جات</string>
-    <string name="empty_profiles">ابھی تک کوئی پروفائلز نہیں ہیں۔ ایک شامل کرنے کے لیے نیچے دیا گیا بٹن استعمال کریں، یا فائل سے اسکین/درآمد کریں۔</string>
+    <string name="empty_profiles">ابھی تک کوئی پروفائلز نہیں ہیں۔ ایک شامل کرنے کے لیے نیچے دیا گیا بٹن استعمال کریں، یا فائل سے درآمد کریں۔</string>
     <string name="action_scan">اسکین کریں۔</string>
     <string name="action_import">درآمد کریں۔</string>
     <string name="action_export">برآمد کریں۔</string>
@@ -89,6 +89,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">ترمیم کریں۔</string>
     <string name="action_delete">حذف کریں۔</string>
+    <string name="action_test_tunnel">ٹنل کی جانچ کریں</string>
+    <string name="action_connect">منسلک کریں</string>
     <string name="action_disconnect">منقطع کریں</string>
     <string name="format_traffic">↑ %1$s ↓ %2$s</string>
     <string name="stats_title">ٹریفک کے اعدادوشمار</string>

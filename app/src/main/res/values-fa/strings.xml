@@ -64,7 +64,7 @@
     <string name="toast_import_failed">واردات انجام نشد: %1$s</string>
     <string name="scan_prompt">کد pingtunnel نمایه QR را روی قاب قرار دهید</string>
     <string name="menu_logs">سیاههها</string>
-    <string name="empty_profiles">هنوز پروفایلی وجود ندارد از دکمه زیر برای اضافه کردن یک فایل یا اسکن / وارد کردن از یک فایل استفاده کنید.</string>
+    <string name="empty_profiles">هنوز پروفایلی وجود ندارد. از دکمه زیر برای افزودن یکی استفاده کنید یا از یک فایل وارد کنید.</string>
     <string name="action_scan">اسکن کنید</string>
     <string name="action_import">واردات</string>
     <string name="action_export">صادرات</string>
@@ -89,6 +89,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">ویرایش کنید</string>
     <string name="action_delete">حذف کنید</string>
+    <string name="action_test_tunnel">آزمایش تونل</string>
+    <string name="action_connect">اتصال</string>
     <string name="action_disconnect">قطع اتصال</string>
     <string name="format_traffic">↑ %1$s ↓ %2$s</string>
     <string name="stats_title">آمار ترافیک</string>

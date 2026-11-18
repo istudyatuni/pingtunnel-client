@@ -75,7 +75,7 @@
 
     <!-- Main screen -->
     <string name="menu_logs">Logs</string>
-    <string name="empty_profiles">No profiles yet. Use the button below to add one, or scan / import from a file.</string>
+    <string name="empty_profiles">No profiles yet. Use the button below to add one, or import from a file.</string>
     <string name="action_scan">Scan</string>
     <string name="action_import">Import</string>
     <string name="action_export">Export</string>
@@ -100,6 +100,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
+    <string name="action_test_tunnel">Test Tunnel</string>
+    <string name="action_connect">Connect</string>
     <string name="action_disconnect">Disconnect</string>
     <string name="format_traffic">↑ %1$s    ↓ %2$s</string>
 

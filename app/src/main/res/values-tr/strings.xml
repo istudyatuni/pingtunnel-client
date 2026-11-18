@@ -64,7 +64,7 @@
     <string name="toast_import_failed">İçe aktarma başarısız oldu: %1$s</string>
     <string name="scan_prompt">pingtunnel profil QR kodunu çerçeveye doğrultun</string>
     <string name="menu_logs">Günlükler</string>
-    <string name="empty_profiles">Henüz profil yok. Bir tane eklemek veya bir dosyadan taramak / içe aktarmak için aşağıdaki düğmeyi kullanın.</string>
+    <string name="empty_profiles">Henüz profil yok. Bir tane eklemek veya bir dosyadan içe aktarmak için aşağıdaki düğmeyi kullanın.</string>
     <string name="action_scan">Tara</string>
     <string name="action_import">İthalat</string>
     <string name="action_export">İhracat</string>
@@ -89,6 +89,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">Düzenle</string>
     <string name="action_delete">Sil</string>
+    <string name="action_test_tunnel">Tüneli test et</string>
+    <string name="action_connect">Bağlan</string>
     <string name="action_disconnect">Bağlantıyı kes</string>
     <string name="format_traffic">↑ %1$s ↓ %2$s</string>
     <string name="stats_title">Trafik istatistikleri</string>

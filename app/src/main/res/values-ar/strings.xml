@@ -64,7 +64,7 @@
     <string name="toast_import_failed">فشل الاستيراد: %1$s</string>
     <string name="scan_prompt">قم بتوجيه رمز ملف التعريف pingtunnel QR إلى الإطار</string>
     <string name="menu_logs">سجلات</string>
-    <string name="empty_profiles">لا توجد ملفات شخصية حتى الآن. استخدم الزر أدناه لإضافة واحد، أو المسح الضوئي/الاستيراد من ملف.</string>
+    <string name="empty_profiles">لا توجد ملفات شخصية حتى الآن. استخدم الزر أدناه لإضافة واحد، أو الاستيراد من ملف.</string>
     <string name="action_scan">مسح</string>
     <string name="action_import">استيراد</string>
     <string name="action_export">تصدير</string>
@@ -89,6 +89,8 @@
     <string name="action_qr">QR</string>
     <string name="action_edit">تحرير</string>
     <string name="action_delete">حذف</string>
+    <string name="action_test_tunnel">اختبار النفق</string>
+    <string name="action_connect">اتصال</string>
     <string name="action_disconnect">قطع الاتصال</string>
     <string name="format_traffic">↑ %1$s ↓ %2$s</string>
     <string name="stats_title">احصائيات المرور</string>

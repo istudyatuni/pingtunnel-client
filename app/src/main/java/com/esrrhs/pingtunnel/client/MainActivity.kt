@@ -152,8 +152,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PingtunnelClientTheme {
                 var screen by rememberSaveable { mutableStateOf("list") }
-                // 配置弹窗开关提升到 Activity：进入统计/编辑等页再返回时弹窗仍在
-                var sheetOpen by rememberSaveable { mutableStateOf(false) }
+                var selectedProfileId by rememberSaveable { mutableStateOf<String?>(null) }
                 // 编辑中的草稿提升到 Activity，供 App 勾选器返回后保留
                 var draft by remember { mutableStateOf(Profile()) }
                 var editorIsNew by rememberSaveable { mutableStateOf(true) }
@@ -172,6 +171,9 @@ class MainActivity : ComponentActivity() {
                 val connectionLogs by viewModel.connectionLogs.collectAsState()
                 val dnsLogs by viewModel.dnsLogs.collectAsState()
                 val ipQueryState by viewModel.ipQuery.collectAsState()
+                val selectedId = selectedProfileId?.takeIf { id -> profiles.any { it.id == id } }
+                    ?: profiles.firstOrNull { it.id == activeId }?.id
+                    ?: profiles.firstOrNull()?.id
 
                 when (screen) {
                     "logs" -> LogsScreen(onBack = { screen = "list" })
@@ -247,15 +249,16 @@ class MainActivity : ComponentActivity() {
 
                     else -> MainScreen(
                         profiles = profiles,
+                        selectedProfileId = selectedId,
                         activeId = activeId,
                         vpnState = vpnState,
                         session = session,
                         testingPingId = testingPingId,
                         qrProfile = profiles.firstOrNull { it.id == qrId },
-                        sheetOpen = sheetOpen,
-                        onSheetOpenChange = { sheetOpen = it },
-                        onProfileClick = ::prepareConnectOrDisconnect,
-                        onSelectProfile = viewModel::selectProfile,
+                        onSelectProfile = { selectedProfileId = it },
+                        onConnectionAction = {
+                            prepareConnectOrDisconnect(selectedId)
+                        },
                         onEdit = { id ->
                             profiles.firstOrNull { it.id == id }?.let {
                                 draft = it
@@ -272,10 +275,10 @@ class MainActivity : ComponentActivity() {
                         onShowLogs = { screen = "logs" },
                         onSettings = { screen = "settings" },
                         onScan = ::startScan,
+                        onPaste = ::importFromClipboard,
                         onImport = {
                             importLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))
                         },
-                        onImportFromClipboard = ::importFromClipboard,
                         onExport = { exportLauncher.launch("pingtunnel-profiles.json") },
                         onTestPing = { id ->
                             viewModel.testPing(id) { ms ->
@@ -331,15 +334,24 @@ class MainActivity : ComponentActivity() {
         importProfileLink(text, R.string.toast_bad_link)
     }
 
-    /** 列表点击：正在使用的配置 → 断开；其他配置 → 校验权限后连接。 */
-    private fun prepareConnectOrDisconnect(id: String) {
+    /** 底部按钮：选中当前活动配置时断开；选中其他配置时切换连接。 */
+    private fun prepareConnectOrDisconnect(id: String?) {
         val current = VpnStateHolder.state.value
-        if (id == viewModel.activeId.value &&
-            (current is VpnState.Connected || current is VpnState.Connecting)
-        ) {
-            VpnController.disconnect(this)
-            return
+        when (current) {
+            is VpnState.Connected, is VpnState.Paused -> {
+                if (id == null || id == viewModel.activeId.value) {
+                    VpnController.disconnect(this)
+                } else {
+                    pendingConnectProfileId = id
+                    VpnController.disconnect(this)
+                    viewModel.onProfileClicked(id)
+                }
+                return
+            }
+            is VpnState.Connecting, is VpnState.Disconnecting -> return
+            else -> Unit
         }
+        if (id == null) return
         pendingConnectProfileId = id
         if (Build.VERSION.SDK_INT >= 33 &&
             ContextCompat.checkSelfPermission(

@@ -206,26 +206,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch { connectionLogRepository.compact(System.currentTimeMillis()) }
     }
 
-    /**
-     * 点击某条配置：若它正在连接/已连接则断开；否则选中并连接。
-     */
+    /** 将指定配置设为实际活动配置，并通过唯一的 VPN 控制器连接。 */
     fun onProfileClicked(id: String) {
-        val current = VpnStateHolder.state.value
-        if (id == activeId.value &&
-            (current is VpnState.Connected || current is VpnState.Connecting)
-        ) {
-            VpnController.disconnect(getApplication())
-        } else {
-            viewModelScope.launch {
-                repository.setActive(id)
-                VpnController.connect(getApplication())
-            }
+        viewModelScope.launch {
+            repository.setActive(id)
+            VpnController.connect(getApplication())
         }
-    }
-
-    /** 仅切换选中配置，不自动连接（Shadowsocks 风格：选完再按大圆钮）。 */
-    fun selectProfile(id: String) {
-        viewModelScope.launch { repository.setActive(id) }
     }
 
     fun saveProfile(profile: Profile, onResult: (ValidationError?) -> Unit) {
@@ -303,11 +289,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun importScanned(profile: Profile) {
         viewModelScope.launch {
             repository.importProfiles(listOf(profile))
-            val stored = repository.profiles.first()
-            val match = stored.lastOrNull {
-                it.name == profile.name && it.config.serverHost == profile.config.serverHost
-            }
-            if (match != null) repository.setActive(match.id)
         }
     }
 
