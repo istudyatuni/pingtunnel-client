@@ -44,6 +44,7 @@ import com.esrrhs.pingtunnel.client.util.ValidationMessages
 import com.esrrhs.pingtunnel.client.vpn.VpnController
 import com.esrrhs.pingtunnel.client.vpn.VpnState
 import com.esrrhs.pingtunnel.client.vpn.VpnStateHolder
+import com.esrrhs.pingtunnel.client.vpn.VpnTileState
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import kotlinx.coroutines.launch
@@ -129,23 +130,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        // 仅首次创建处理启动 Intent：旋转/进程恢复导致的重建会带着同一个 Intent
-        // 再走这里——深度链接会重复导入（撞 id 后仓库会换新 UUID 产生重复配置），
-        // 磁贴 EXTRA_CONNECT 在已连接时重建甚至会误触发断开。
+        // 重建 Activity 时不重复处理同一个启动 Intent。
         if (savedInstanceState == null) {
-            // 来自 Quick Settings 磁贴：VPN 尚未授权时先打开本页，授权后立即连接
-            if (intent?.getBooleanExtra(EXTRA_CONNECT, false) == true) {
-                lifecycleScope.launch {
-                    val id = viewModel.awaitActiveProfileId()
-                    if (id != null) {
-                        prepareConnectOrDisconnect(id)
-                    } else {
-                        toast(getString(R.string.toast_add_profile_first))
-                    }
-                }
-            }
-
-            // pingtunnel:// 深度链接冷启动导入
+            handleConnectRequest(intent)
             handleProfileLink(intent)
         }
 
@@ -351,7 +338,10 @@ class MainActivity : ComponentActivity() {
             is VpnState.Connecting, is VpnState.Disconnecting -> return
             else -> Unit
         }
-        if (id == null) return
+        if (id != null) requestConnectPermissions(id)
+    }
+
+    private fun requestConnectPermissions(id: String) {
         pendingConnectProfileId = id
         if (Build.VERSION.SDK_INT >= 33 &&
             ContextCompat.checkSelfPermission(
@@ -381,7 +371,21 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        handleConnectRequest(intent)
         handleProfileLink(intent)
+    }
+
+    private fun handleConnectRequest(intent: Intent?) {
+        if (intent?.getBooleanExtra(EXTRA_CONNECT, false) != true) return
+        lifecycleScope.launch {
+            val id = viewModel.awaitActiveProfileId()
+            if (VpnTileState.of(VpnStateHolder.state.value) == VpnTileState.Tile.ACTIVE) return@launch
+            if (id != null) {
+                requestConnectPermissions(id)
+            } else {
+                toast(getString(R.string.toast_add_profile_first))
+            }
+        }
     }
 
     /** 处理 pingtunnel:// 配置链接（网页/分享/剪贴板），与扫码共用同一编解码。 */
@@ -410,7 +414,7 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
-        /** 由 Quick Settings 磁贴在需要 VPN 授权时携带：进页面后自动发起连接。 */
+        /** 由快捷设置磁贴和桌面小组件在需要 VPN 授权时携带。 */
         const val EXTRA_CONNECT = "com.esrrhs.pingtunnel.client.extra.CONNECT"
     }
 }

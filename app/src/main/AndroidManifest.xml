@@ -51,6 +51,25 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".vpn.CreateVpnShortcutActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/tile_label"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".vpn.VpnShortcutActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <!-- 移除 zxing 默认的 SENSOR_LANDSCAPE 方向限制，适配大屏/折叠屏 -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
@@ -76,6 +95,18 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".vpn.PingtunnelWidgetProvider"
+            android:exported="false"
+            android:label="@string/tile_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pingtunnel_widget_info" />
         </receiver>
 
         <service

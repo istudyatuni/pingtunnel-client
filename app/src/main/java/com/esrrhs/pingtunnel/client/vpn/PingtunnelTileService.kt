@@ -2,17 +2,15 @@ package com.esrrhs.pingtunnel.client.vpn
 
 import android.app.PendingIntent
 import android.content.Intent
-import android.net.VpnService
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import com.esrrhs.pingtunnel.client.MainActivity
+import com.esrrhs.pingtunnel.client.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import com.esrrhs.pingtunnel.client.R
 
 /**
  * 下拉通知栏的 Quick Settings 磁贴：一键启停 VPN。
@@ -38,14 +36,7 @@ class PingtunnelTileService : TileService() {
     }
 
     override fun onClick() {
-        val toggle = {
-            val state = VpnStateHolder.state.value
-            when (VpnTileState.of(state)) {
-                VpnTileState.Tile.ACTIVE ->
-                    VpnController.disconnect(applicationContext)
-                VpnTileState.Tile.INACTIVE -> startOrAskConsent()
-            }
-        }
+        val toggle = { VpnController.toggle(applicationContext, ::openAppForConsent) }
         if (isLocked) {
             unlockAndRun(toggle)
         } else {
@@ -53,20 +44,7 @@ class PingtunnelTileService : TileService() {
         }
     }
 
-    /** 已授权则直接连接；否则打开 App 由用户确认系统 VPN 授权弹窗。 */
-    private fun startOrAskConsent() {
-        if (VpnService.prepare(this) == null) {
-            VpnController.connect(applicationContext)
-        } else {
-            openAppForConsent()
-        }
-    }
-
-    private fun openAppForConsent() {
-        val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra(MainActivity.EXTRA_CONNECT, true)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
+    private fun openAppForConsent(intent: Intent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val pending = PendingIntent.getActivity(
                 this, 0, intent,
